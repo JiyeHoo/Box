@@ -11,7 +11,7 @@ android {
     defaultConfig {
         applicationId 'com.github.tvbox.osc.tk'
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0.".concat(buildTime())
         multiDexEnabled true
@@ -30,9 +30,9 @@ android {
     buildTypes {        
         release {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            minifyEnabled true
+            minifyEnabled false
             ndk {
-                abiFilters 'armeabi-v7a'                
+                abiFilters 'armeabi-v7a'
             }
         }
     }

@@ -88,7 +88,7 @@ public class App extends MultiDexApplication {
         Hawk.put(HawkConfig.DEBUG_OPEN, false);
 
         // 首页选项
-        putDefault(HawkConfig.HOME_SHOW_SOURCE, true);       //数据源显示: true=开启, false=关闭
+        putDefault(HawkConfig.HOME_SHOW_SOURCE, false);       //数据源显示: true=开启, false=关闭
         putDefault(HawkConfig.HOME_SEARCH_POSITION, false);  //按钮位置-搜索: true=上方, false=下方
         putDefault(HawkConfig.HOME_MENU_POSITION, true);     //按钮位置-设置: true=上方, false=下方
         putDefault(HawkConfig.HOME_REC, 2);                  //推荐: 0=豆瓣热播, 1=站点推荐, 2=观看历史
@@ -106,6 +106,7 @@ public class App extends MultiDexApplication {
         putDefault(HawkConfig.PARSE_WEBVIEW, true);          //嗅探Webview: true=系统自带, false=XWalkView
         putDefault(HawkConfig.DOH_URL, 0);                   //安全DNS: 0=关闭, 1=腾讯, 2=阿里, 3=360, 4=Google, 5=AdGuard, 6=Quad9
 
+        putDefault(HawkConfig.API_URL, "http://饭太硬.top/tv");
     }
 
     private void initLocale() {

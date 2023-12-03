@@ -3,6 +3,8 @@ package com.github.tvbox.osc.ui.fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.DiffUtil;
 
 import com.github.tvbox.osc.R;
 import com.github.tvbox.osc.api.ApiConfig;
+import com.github.tvbox.osc.api.MyApiList;
 import com.github.tvbox.osc.base.BaseActivity;
 import com.github.tvbox.osc.base.BaseLazyFragment;
 import com.github.tvbox.osc.bean.IJKCode;
@@ -24,6 +27,7 @@ import com.github.tvbox.osc.ui.adapter.SelectDialogAdapter;
 import com.github.tvbox.osc.ui.dialog.AboutDialog;
 import com.github.tvbox.osc.ui.dialog.ApiDialog;
 import com.github.tvbox.osc.ui.dialog.ApiHistoryDialog;
+import com.github.tvbox.osc.ui.dialog.ApiListDialog;
 import com.github.tvbox.osc.ui.dialog.BackupDialog;
 import com.github.tvbox.osc.ui.dialog.HomeIconDialog;
 import com.github.tvbox.osc.ui.dialog.SelectDialog;
@@ -58,6 +62,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
  * @description:
  */
 public class ModelSettingFragment extends BaseLazyFragment {
+    private static final String TAG = "ModelSettingFragment";
     private TextView tvDebugOpen;
     private TextView tvApi;
     // Home Section
@@ -138,6 +143,8 @@ public class ModelSettingFragment extends BaseLazyFragment {
 		tvHomeDefaultShow = findViewById(R.id.tvHomeDefaultShow);
         tvHomeDefaultShow.setText(Hawk.get(HawkConfig.HOME_DEFAULT_SHOW, false) ? "开启" : "关闭");
 
+        findViewById(R.id.llApiList).setOnClickListener(this::showApiList);
+
         //takagen99 : Set HomeApi as default
         findViewById(R.id.llHomeApi).requestFocus();
 
@@ -159,8 +166,16 @@ public class ModelSettingFragment extends BaseLazyFragment {
                 dialog.setOnListener(new ApiDialog.OnListener() {
                     @Override
                     public void onchange(String api) {
-                        Hawk.put(HawkConfig.API_URL, api);
-                        tvApi.setText(api);
+                        String apiStr = api;
+                        if (TextUtils.equals(api, "1")) {
+                            apiStr = "http://饭太硬.top/tv";
+                        } else if (TextUtils.equals(api, "2")) {
+                            apiStr = "http://肥猫.live";
+                        } else if (TextUtils.equals(api, "3")) {
+                            apiStr = "https://神器每日推送.tk/pz.json";
+                        }
+                        Hawk.put(HawkConfig.API_URL, apiStr);
+                        tvApi.setText(apiStr);
                     }
                 });
                 dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -825,6 +840,48 @@ public class ModelSettingFragment extends BaseLazyFragment {
         };
 
     }
+
+
+
+    private int getApiDataOption() {
+        String nowApi = Hawk.get(HawkConfig.API_URL, "");
+        List<String> apiStrList = MyApiList.getApiData();
+
+        for (int i = 0; i < apiStrList.size(); i++) {
+            if (TextUtils.equals(nowApi, apiStrList.get(i))) {
+                return i;
+            }
+        }
+
+        return 0;
+    }
+
+    private void showApiList(View view) {
+        ApiListDialog apiListDialog = new ApiListDialog(mContext);
+        apiListDialog.setTip("内置仓库");
+
+        apiListDialog.setAdapter(
+                apiListChooseListener,
+                MyApiList.getApiData(),
+                getApiDataOption());
+
+        apiListDialog.show();
+    }
+
+    private final ApiHistoryDialogAdapter.SelectDialogInterface apiListChooseListener = new ApiHistoryDialogAdapter.SelectDialogInterface() {
+        @Override
+        public void click(String value) {
+            Log.d(TAG, "choose api:" + value);
+            Hawk.put(HawkConfig.API_URL, value);
+            tvApi.setText(value);
+        }
+
+        @Override
+        public void del(String value, ArrayList<String> data) {
+            Toast.makeText(mContext, "暂不支持", Toast.LENGTH_LONG).show();
+            Log.d(TAG, "delete api:" + value);
+        }
+    };
 
     @Override
     public void onDestroyView() {
