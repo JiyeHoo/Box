@@ -12,10 +12,14 @@ public class MyApiList {
         List<String> apiStrList = new ArrayList<>();
         apiStrList.add("http://饭太硬.top/tv");
         apiStrList.add("http://肥猫.live");
-//        apiStrList.add("https://fm.t4tv.hz.cz/json/config.json");
         apiStrList.add("https://pastebin.com/raw/5NHaxyGR");
-        apiStrList.add("https://神器每日推送.tk/pz.json");
-        apiStrList.add("http://我不是.肥猫.love:63/接口禁止贩卖");
+        apiStrList.add("https://github.moeyy.xyz/raw.githubusercontent.com/gaotianliuyun/gao/master/0827.json");
+        apiStrList.add("http://xhww.fun/小米/DEMO.json");
+        apiStrList.add("https://100km.top/0");
+        apiStrList.add("https://jihulab.com/okcaptain/kko/-/raw/main/ok.txt");
+        apiStrList.add("http://cdn.qiaoji8.com/tvbox.json");
+        apiStrList.add("http://bp.tvbox.cam/");
+        apiStrList.add("https://github.moeyy.xyz/https://raw.githubusercontent.com/xyq254245/xyqonlinerule/main/XYQTVBox.json");
 
 
         return apiStrList;

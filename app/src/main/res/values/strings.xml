@@ -3,6 +3,8 @@
     <string name="app_name">TVBox</string>
     <string name="app_home">Home</string>
     <string name="app_source"></string>
+    <string name="app_id">959202eb</string>
+
 
     // Home Page //
     <string name="hm_ok">Load Complete</string>

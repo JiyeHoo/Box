@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TVBox</string>
+    <string name="app_name">TV·Box</string>
     <string name="app_home">首页</string>
     <string name="app_source"></string>
+    <string name="app_id">959202eb</string>
+
 
     // Home Page //
     <string name="hm_ok">加载成功</string>

@@ -1570,6 +1570,31 @@
                                 android:textSize="@dimen/ts_24" />
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/llIvw"
+                            android:layout_width="@dimen/vs_80"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/vs_5"
+                            android:layout_marginLeft="@dimen/vs_5"
+                            android:layout_marginEnd="@dimen/vs_5"
+                            android:layout_marginRight="@dimen/vs_5"
+                            android:background="@drawable/shape_setting_model_focus"
+                            android:focusable="true"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/vs_10">
+
+                            <TextView
+                                android:id="@+id/tv_ivw_set"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="middle"
+                                android:singleLine="true"
+                                android:text="语音"
+                                android:textColor="@android:color/white"
+                                android:textSize="@dimen/ts_24" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>

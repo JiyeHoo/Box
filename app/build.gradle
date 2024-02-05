@@ -34,6 +34,8 @@ android {
             minifyEnabled false
             ndk {
                 abiFilters 'armeabi-v7a'
+//                abiFilters 'arm64-v8a'
+
             }
         }
     }
@@ -50,6 +52,12 @@ android {
     
     buildFeatures {
         dataBinding = true
+    }
+    externalNativeBuild {
+        cmake {
+            path file('src/main/cpp/CMakeLists.txt')
+            version '3.22.1'
+        }
     }
 }
 
@@ -69,6 +77,9 @@ dependencies {
     implementation('com.github.thegrizzlylabs:sardine-android:0.8') {
         exclude group: 'com.squareup.okhttp3'
     }
+
+    implementation files('libs/Msc.jar')
+
     implementation 'com.github.NanoHttpd.nanohttpd:nanohttpd:nanohttpd-project-2.3.1'
     implementation 'com.github.NanoHttpd.nanohttpd:nanohttpd:nanohttpd-websocket-2.3.1'
     implementation 'com.google.zxing:core:3.5.1'

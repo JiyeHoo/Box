@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="@dimen/vs_720"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_dialog_bg_main">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="@dimen/ts_40"
+            android:lineSpacingMultiplier="0"
+            android:padding="@dimen/vs_20"
+            android:shadowColor="@color/color_FF000000"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:singleLine="true"
+            android:textColor="@color/color_FFFFFF"
+            android:textSize="@dimen/ts_26"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="唤醒设置" />
+
+        <LinearLayout
+            android:id="@+id/ivw_set"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/vs_30"
+            android:paddingRight="@dimen/vs_30"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintHeight_max="@dimen/vs_480"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:tv_layoutManager="V7LinearLayoutManager"
+            app:tv_selectedItemIsCentered="true"
+            app:tv_verticalSpacingWithMargins="@dimen/vs_10">
+
+            <TextView
+                android:id="@+id/tvThresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:text="唤醒阈值"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/ts_24" />
+
+            <SeekBar
+                android:id="@+id/seekBar_thresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:progressTint="@android:color/white"
+                android:thumbTint="@android:color/white"
+                android:progressBackgroundTint="@android:color/white"
+                android:layout_marginBottom="10dp" />
+
+
+
+            <LinearLayout
+                android:id="@+id/llIvw"
+                android:layout_width="@dimen/vs_80"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_setting_model_focus"
+                android:focusable="true"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/vs_10">
+
+                <TextView
+                    android:id="@+id/tv_ivw_set"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:text="开启"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/ts_24" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/vs_30"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivw_set" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

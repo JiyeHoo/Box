@@ -1,7 +1,9 @@
 package com.github.tvbox.osc.ui.fragment;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,8 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DiffUtil;
 
 import com.github.tvbox.osc.R;
@@ -22,6 +28,7 @@ import com.github.tvbox.osc.base.BaseActivity;
 import com.github.tvbox.osc.base.BaseLazyFragment;
 import com.github.tvbox.osc.bean.IJKCode;
 import com.github.tvbox.osc.bean.SourceBean;
+import com.github.tvbox.osc.ivw.IvwHelper;
 import com.github.tvbox.osc.ui.activity.SettingActivity;
 import com.github.tvbox.osc.ui.adapter.ApiHistoryDialogAdapter;
 import com.github.tvbox.osc.ui.adapter.SelectDialogAdapter;
@@ -33,6 +40,7 @@ import com.github.tvbox.osc.ui.dialog.BackupDialog;
 import com.github.tvbox.osc.ui.dialog.HomeIconDialog;
 import com.github.tvbox.osc.ui.dialog.SelectDialog;
 import com.github.tvbox.osc.ui.dialog.ResetDialog;
+import com.github.tvbox.osc.ui.dialog.WakeUpIvwDialog;
 import com.github.tvbox.osc.ui.dialog.XWalkInitDialog;
 import com.github.tvbox.osc.util.DefaultConfig;
 import com.github.tvbox.osc.util.FastClickCheckUtil;
@@ -153,6 +161,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
         tvHomeDefaultShow.setText(Hawk.get(HawkConfig.HOME_DEFAULT_SHOW, false) ? "开启" : "关闭");
 
         findViewById(R.id.llApiList).setOnClickListener(this::showApiList);
+        findViewById(R.id.llIvw).setOnClickListener(this::setIvw);
 
         //takagen99 : Set HomeApi as default
         findViewById(R.id.llHomeApi).requestFocus();
@@ -873,7 +882,48 @@ public class ModelSettingFragment extends BaseLazyFragment {
 
     }
 
+    private void setIvw(View view) {
+        Log.d(TAG, "set ivw");
 
+        requestRecordAudioPermission();
+
+    }
+    private static final int RECORD_AUDIO_PERMISSION_REQUEST_CODE = 1001;
+
+    private void requestRecordAudioPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.RECORD_AUDIO)
+                != PackageManager.PERMISSION_GRANTED) {
+            // 如果权限未被授予，则发起权限请求
+            ActivityCompat.requestPermissions(requireActivity(),
+                    new String[]{Manifest.permission.RECORD_AUDIO},
+                    RECORD_AUDIO_PERMISSION_REQUEST_CODE);
+        } else {
+            // 权限已被授予
+            // 在这里可以进行相关操作，例如开始录音等
+            Log.d(TAG, "have audio permission");
+            IvwHelper.getInstance().init(getActivity());
+            WakeUpIvwDialog dialog = new WakeUpIvwDialog(mActivity);
+            dialog.show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == RECORD_AUDIO_PERMISSION_REQUEST_CODE) {
+            // 检查权限请求的结果
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // 用户同意授予录音权限
+                // 在这里可以进行相关操作，例如开始录音等
+                Log.d(TAG, "get audio permission success");
+                IvwHelper.getInstance().init(getActivity());
+                WakeUpIvwDialog dialog = new WakeUpIvwDialog(mActivity);
+                dialog.show();
+            } else {
+                // 用户拒绝授予录音权限，可以给出相应提示或处理
+                Toast.makeText(getActivity(), "语音操作需要麦克风权限", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
     private int getApiDataOption() {
         String nowApi = Hawk.get(HawkConfig.API_URL, "");
