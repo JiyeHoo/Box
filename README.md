@@ -12,7 +12,7 @@ Fork 自 TvBox
 
 
 
-# Box
+# 配置说明
 
 === Source Code - Editing the app default settings ===
 /src/main/java/com/github/tvbox/osc/base/App.java
@@ -28,3 +28,7 @@ Fork 自 TvBox
         putDefault(HawkConfig.SEARCH_VIEW, 2);    // Text or Picture
 
     }
+
+
+如果你想使用讯飞语音，你需要安装官网 V5 的文档，替换 ivw 等唤醒文件，并替换你的 jar sdk，将 appid 改成你的
+
