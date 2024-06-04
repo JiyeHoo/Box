@@ -186,7 +186,7 @@ public class ModelSettingFragment extends BaseLazyFragment {
                     public void onchange(String api) {
                         String apiStr = api;
                         if (TextUtils.equals(api, "1")) {
-                            apiStr = "http://饭太硬.top/tv";
+                            apiStr = "http://www.饭太硬.com/tv";
                         } else if (TextUtils.equals(api, "2")) {
                             apiStr = "http://肥猫.live";
                         } else if (TextUtils.equals(api, "3")) {
